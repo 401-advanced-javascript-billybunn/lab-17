@@ -17,7 +17,8 @@
 [6]: heroku-link/docs 
 
 ## TCP Server / Message Application
-[![Build Status](https://travis-ci.com/401-advanced-javascript-billybunn/lab-16.svg?branch=master)](https://travis-ci.com/401-advanced-javascript-billybunn/lab-16)
+[![Build Status](https://travis-ci.com/401-advanced-javascript-billybunn/lab-17.svg?branch=working)](https://travis-ci.com/401-advanced-javascript-billybunn/lab-17)
+
 ### Author: Billy Bunn
 
 ### Links and Resources
