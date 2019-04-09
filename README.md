@@ -65,4 +65,8 @@
 <!-- * What assertions need to be / should be made? -->
 
 #### UML
-![UML Diagram]()
+##### Final Diagram
+![UML Diagram 1](https://i.imgur.com/BZvYdbD.jpg)
+---
+##### Lecture Diagram
+![UML Diagram 2](https://i.imgur.com/JWXXXMh.jpg)
