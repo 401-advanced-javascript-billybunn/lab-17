@@ -21,11 +21,11 @@ server.on('connection', (socket) => {
   });
 });
 
-let dispatchEvent = (buffer) => {
-  let text = buffer.toString();
-  console.log('string:', JSON.parse(buffer));
+let dispatchEvent = (json) => {
+  // let payload = ;
+  let {event, payload} = JSON.parse(json);
+  console.log('line 27',event, payload);
 
-  let [event, payload] = text.split(/\s+(.*)/);
   // if (allowedEvents.includes(event)) {
   // console.log(`BROADCAST: ${event}`);
   let message = {event, payload};

@@ -2,7 +2,7 @@
 
 const net = require('net');
 const client = new net.Socket();
-client.connect(3001, 'localhost', () => {});
+client.connect(3001, 'localhost', () => { });
 
 
 const fs = require('fs');
@@ -23,15 +23,27 @@ const alterFile = (file) => {
   read(file)
     .then(buffer => uppercase(buffer))
     .then(buffer => write(file, buffer))
-    // .then(success => client.write(`file-save ${file} saved properly`))
     .then(success => {
-      let payload = JSON.stringify({ event: 'file-save', status: 1, file: file, text: 'Saved Properly' });
+      let payload = JSON.stringify({
+        event: 'file-save',
+        payload: {
+          status: 1,
+          file: file,
+          text: 'Saved Properly',
+        },
+      });
       return client.write(payload);
     })
 
-    // .catch(error => client.write(`file-error ${error}`));
     .catch(error => {
-      let payload = JSON.stringify({event: 'file-error', status: 0, file: file, text: error.message });
+      let payload = JSON.stringify({
+        event: 'file-error',
+        payload: {
+          status: 0,
+          file: file,
+          text: error.message,
+        },
+      });
       return client.write(payload);
     });
 
