@@ -23,11 +23,7 @@ const alterFile = (file) => {
     .then(success => {
       let payload = JSON.stringify({
         event: 'file-save',
-        payload: {
-          status: 1,
-          file: file,
-          text: 'saved properly',
-        },
+        payload: {status: 1, file: file, text: 'saved properly'},
       });
       return client.write(payload);
     })
@@ -35,11 +31,7 @@ const alterFile = (file) => {
     .catch(error => {
       let payload = JSON.stringify({
         event: 'file-error',
-        payload: {
-          status: 0,
-          file: file,
-          text: error.message,
-        },
+        payload: { status: 0, file: file, text: error.message},
       });
       return client.write(payload);
     });

@@ -12,12 +12,12 @@ let allowedEvents = ['file-error', 'file-save'];
 
 server.on('connection', (socket) => {
   const id = `Socket-${Math.random()}`;
-  console.log('Welcome', id);
+  console.log('CONNECTED:', id);
   socketPool[id] = socket;
   socket.on('data', (buffer) => dispatchEvent(buffer));
   socket.on('close', () => {
     delete socketPool[id];
-    console.log(`Goodbye ${id}`);
+    console.log(`DISCONNECTED: ${id}`);
   });
 });
 

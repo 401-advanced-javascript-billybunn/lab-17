@@ -8,6 +8,8 @@ class Logger {
     this.data = JSON.parse(json),
     this.event = this.data.event,
     this.payload = this.data.payload,
+
+    // dictionary of event handler functions
     this.handlers = {
       'file-save': handleSave,
       'file-error': handleError,
