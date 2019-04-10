@@ -4,14 +4,11 @@ const net = require('net');
 const client = new net.Socket();
 client.connect(3001, 'localhost', () => { });
 
-
 const fs = require('fs');
 const util = require('util');
-
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-// const events = require('./event-pool.js');
 require('./logger.js');
 
 

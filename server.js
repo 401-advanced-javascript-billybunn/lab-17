@@ -8,7 +8,7 @@ const server = net.createServer();
 server.listen(port, () => console.log(`Server up on ${port}`));
 
 let socketPool = {};
-// let allowedEvents = ['file-error', 'file-save'];
+let allowedEvents = ['file-error', 'file-save'];
 
 server.on('connection', (socket) => {
   const id = `Socket-${Math.random()}`;
@@ -22,19 +22,17 @@ server.on('connection', (socket) => {
 });
 
 let dispatchEvent = (json) => {
-  let {event, payload} = JSON.parse(json);
-  console.log('SERVER GOT THE PAYLOAD',event, payload);
+  let { event, payload } = JSON.parse(json);
 
-  // if (allowedEvents.includes(event)) {
-  // console.log(`BROADCAST: ${event}`);
-  // let message = {event, payload};
-  for (let socket in socketPool) {
-    socketPool[socket].write(JSON.stringify({event, payload}));
+  if (allowedEvents.includes(event)) {
+    console.log(`BROADCAST: ${event}`);
+    for (let socket in socketPool) {
+      socketPool[socket].write(JSON.stringify({ event, payload }));
+    }
   }
-  // }
-  // else {
-  //   console.log(`IGNORE: ${event}`);
-  // }
+  else {
+    console.log(`IGNORE: ${event}`);
+  }
 
 };
 
