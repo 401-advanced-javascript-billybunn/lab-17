@@ -1,12 +1,17 @@
 'use strict';
 
+const net = require('net');
+const client = new net.Socket();
+client.connect(3001, 'localhost', () => {});
+
+
 const fs = require('fs');
 const util = require('util');
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-const events = require('./event-pool.js');
+// const events = require('./event-pool.js');
 require('./logger.js');
 
 
@@ -18,8 +23,8 @@ const alterFile = (file) => {
   read(file)
     .then(buffer => uppercase(buffer))
     .then(buffer => write(file, buffer))
-    .then(success => events.emit('file-save', { status: 1, file: file, text: 'Saved Properly' }))
-    .catch(error => events.emit('file-error', { status: 0, file: file, text: error.message }));
+    .then(success => client.write(`file-save ${file} saved properly`))
+    .catch(error => client.write(`file-error ${error}`));
 };
 
 let file = process.argv.slice(2).shift();

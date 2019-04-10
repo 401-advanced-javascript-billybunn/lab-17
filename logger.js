@@ -1,8 +1,26 @@
 'use strict';
 
-const events = require('./event-pool.js');
+// const events = require('./event-pool.js');
 
+const net = require('net');
 
+const client = new net.Socket();
+
+client.connect(3001, 'localhost', () => {});
+
+// client.on('data', (payload) => {
+//   console.log('Got some data:', payload.toString().trim());
+// });
+
+client.on('data', (payload) => {
+  if (payload) {
+    console.error('ERROR', payload.toString().trim());
+  }
+});
+
+client.on('close', () => {
+  console.log('Connection Closed');
+});
 
 const err = (payload) => {
   if (payload) {
@@ -16,7 +34,7 @@ const save = (payload) => {
   }
 };
 
-events.on('file-error', err);
-events.on('file-save', save);
+// events.on('file-error', err);
+// events.on('file-save', save);
 
-module.exports = { err, save };
+// module.exports = { err, save };
