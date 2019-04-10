@@ -1,8 +1,14 @@
 'use strict';
 
 const net = require('net');
-const client = new net.Socket();
-client.connect(3001, 'localhost', () => { });
+const socket = new net.Socket();
+
+const options = {
+  port: process.env.PORT || 3001,
+  host: process.env.HOST || 'localhost',
+};
+
+socket.connect(options, () => { });
 
 const fs = require('fs');
 const util = require('util');
@@ -25,7 +31,7 @@ const alterFile = (file) => {
         event: 'file-save',
         payload: {status: 1, file: file, text: 'saved properly'},
       });
-      return client.write(payload);
+      return socket.write(payload) && socket.end();
     })
 
     .catch(error => {
@@ -33,7 +39,7 @@ const alterFile = (file) => {
         event: 'file-error',
         payload: { status: 0, file: file, text: error.message},
       });
-      return client.write(payload);
+      return socket.write(payload) && socket.end();
     });
 
 };
