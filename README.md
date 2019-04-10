@@ -37,7 +37,23 @@
 
 ### Modules
 #### `app.js`
+Socket that makes a TCP connection with `server.js` on port 3001. 
+###### `alterFile(file)`
+Calls a series of functions to read a file, convert the content to all uppercase characters, and re-write the file with the new content. Emits an event upon completing the process or a different event if an error occurs.
+
+###### `read(file) -> fs.readFile(file) as Promise`
+Calls the promisify-ed `fs.readFile` function. Takes a filepath to read as a parameter, ultimately returns a buffer of the data in that file.
+
+###### `uppercase(data) -> Buffer of data in uppercase characters`
+Takes buffer data as a parameter, returns a buffer of the same content in uppercase characters.
+
+###### `write(file, contents) -> fs.writeFile(file, contents) as Promise`
+Calls the promisify-ed `fs.writeFile` function. Takes a filepath and buffer data as parameters, ultimately writes new file with the filepath of `file` with the `contents`.
+
 #### `server.js`
+The TCP server. Accepts connections from sockets on port 3001.
+###### `dispatchEvent(json) -> broadcasts the payload of allowed events to all sockets`
+
 #### `logger.js`
 
 ### Setup
