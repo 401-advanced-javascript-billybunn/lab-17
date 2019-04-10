@@ -6,15 +6,20 @@ const net = require('net');
 
 const client = new net.Socket();
 
-client.connect(3001, 'localhost', () => {});
+client.connect(3001, 'localhost', () => { });
 
 // client.on('data', (payload) => {
 //   console.log('Got some data:', payload.toString().trim());
 // });
 
-client.on('data', (payload) => {
-  if (payload) {
-    console.error('ERROR', payload.toString().trim());
+client.on('data', (payloadBuffer) => {
+  let parsedPayload = JSON.parse(payloadBuffer.toString().trim());
+  console.log(parsedPayload);
+  let event, payload;
+  [event, payload] = [parsedPayload.event, parsedPayload.payload];
+  if (payloadBuffer) {
+    console.error(`EVENT: ${event}
+PAYLOAD: ${payload}`);
   }
 });
 

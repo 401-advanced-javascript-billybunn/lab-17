@@ -23,8 +23,18 @@ const alterFile = (file) => {
   read(file)
     .then(buffer => uppercase(buffer))
     .then(buffer => write(file, buffer))
-    .then(success => client.write(`file-save ${file} saved properly`))
-    .catch(error => client.write(`file-error ${error}`));
+    // .then(success => client.write(`file-save ${file} saved properly`))
+    .then(success => {
+      let payload = JSON.stringify({ event: 'file-save', status: 1, file: file, text: 'Saved Properly' });
+      return client.write(payload);
+    })
+
+    // .catch(error => client.write(`file-error ${error}`));
+    .catch(error => {
+      let payload = JSON.stringify({event: 'file-error', status: 0, file: file, text: error.message });
+      return client.write(payload);
+    });
+
 };
 
 let file = process.argv.slice(2).shift();

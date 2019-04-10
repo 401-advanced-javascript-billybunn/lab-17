@@ -22,7 +22,8 @@ server.on('connection', (socket) => {
 });
 
 let dispatchEvent = (buffer) => {
-  let text = buffer.toString().trim();
+  let text = buffer.toString();
+  console.log('string:', JSON.parse(buffer));
 
   let [event, payload] = text.split(/\s+(.*)/);
   // if (allowedEvents.includes(event)) {
