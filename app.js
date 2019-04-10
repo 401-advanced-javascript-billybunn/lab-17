@@ -26,7 +26,7 @@ const alterFile = (file) => {
         payload: {
           status: 1,
           file: file,
-          text: 'Saved Properly',
+          text: 'saved properly',
         },
       });
       return client.write(payload);
