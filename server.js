@@ -22,15 +22,14 @@ server.on('connection', (socket) => {
 });
 
 let dispatchEvent = (json) => {
-  // let payload = ;
   let {event, payload} = JSON.parse(json);
-  console.log('line 27',event, payload);
+  console.log('SERVER GOT THE PAYLOAD',event, payload);
 
   // if (allowedEvents.includes(event)) {
   // console.log(`BROADCAST: ${event}`);
-  let message = {event, payload};
+  // let message = {event, payload};
   for (let socket in socketPool) {
-    socketPool[socket].write(JSON.stringify(message));
+    socketPool[socket].write(JSON.stringify({event, payload}));
   }
   // }
   // else {

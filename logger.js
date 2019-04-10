@@ -8,38 +8,12 @@ const client = new net.Socket();
 
 client.connect(3001, 'localhost', () => { });
 
-// client.on('data', (payload) => {
-//   console.log('Got some data:', payload.toString().trim());
-// });
+client.on('data', (json) => {
+  let {event, payload} = JSON.parse(json);
+  console.log('logger line 17', event, payload);
+  console.log(typeof event);
 
-client.on('data', (payloadBuffer) => {
-  let parsedPayload = JSON.parse(payloadBuffer.toString().trim());
-  console.log(parsedPayload);
-  let event, payload;
-  [event, payload] = [parsedPayload.event, parsedPayload.payload];
-  if (payloadBuffer) {
-    console.error(`EVENT: ${event}
-PAYLOAD: ${payload}`);
-  }
+  if (event === 'file-save') console.log('SUCCESS:', payload);
+  if (event === 'file-error') console.error('ERROR:', payload);
+
 });
-
-client.on('close', () => {
-  console.log('Connection Closed');
-});
-
-const err = (payload) => {
-  if (payload) {
-    console.error('ERROR', payload);
-  }
-};
-
-const save = (payload) => {
-  if (payload) {
-    console.log(payload);
-  }
-};
-
-// events.on('file-error', err);
-// events.on('file-save', save);
-
-// module.exports = { err, save };
