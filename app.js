@@ -29,17 +29,19 @@ const alterFile = (file) => {
     .then(success => {
       let payload = JSON.stringify({
         event: 'file-save',
-        payload: {status: 1, file: file, text: 'saved properly'},
+        payload: { status: 1, file: file, text: 'saved properly' },
       });
-      return socket.write(payload) && socket.end();
+      socket.write(payload);
+      socket.end();
     })
 
     .catch(error => {
       let payload = JSON.stringify({
         event: 'file-error',
-        payload: { status: 0, file: file, text: error.message},
+        payload: { status: 0, file: file, text: error.message },
       });
-      return socket.write(payload) && socket.end();
+      socket.write(payload);
+      socket.end();
     });
 
 };
